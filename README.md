@@ -9,7 +9,11 @@ This repository provides the implementation for our paper "ZipCache: Accurate an
 Follow the step-by-step tutorial to set up EFFICIENTDM.
 
 ### Step 1: Setup
-Create a virtual environment and install dependencies as specified by requirements.txt.
+Create a virtual environment and install dependencies as specified by requirements.txt. Then install zipcache as follows:
+```python
+python3 setup.py
+
+```
 
 ### Step 2: Download Pretrained Models
 Download the pretrained LLaMA model from huggingface and modify the MODEL_PATH in zipcache_generation_demo.py.
