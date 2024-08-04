@@ -806,7 +806,7 @@ class MixedLlamaAttention(nn.Module):
             attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query_states.dtype)
             attn_weights_less_heads = attn_weights.reshape(bsz, self.num_heads//self.num_key_value_groups, self.num_key_value_groups, q_len, kv_seq_len).sum(2)
             token_attn_sum = torch.sum(attn_weights_less_heads, dim=[2]) ## for fullcache
-            token_attn_sum = token_attn_sum / torch.flip(torch.arange(1,token_attn_sum.shape[-1]+1, device=token_attn_sum.device), dims=(0,)).unsqueeze(0).unsqueeze(0) # avg(A)
+            # token_attn_sum = token_attn_sum / torch.flip(torch.arange(1,token_attn_sum.shape[-1]+1, device=token_attn_sum.device), dims=(0,)).unsqueeze(0).unsqueeze(0) # avg(A)
             token_attn_sum = token_attn_sum[:,:,self.prompt_length:,]
             new_unimportant_ids_k = token_attn_sum.topk(int(self.compress_config['k_unimportant_ratio']*self.compress_config["streaming_gap"]), dim=-1, largest=False).indices + self.prompt_length
             new_unimportant_ids_v = token_attn_sum.topk(int(self.compress_config['v_unimportant_ratio']*self.compress_config["streaming_gap"]), dim=-1, largest=False).indices + self.prompt_length
