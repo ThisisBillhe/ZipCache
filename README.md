@@ -6,14 +6,14 @@ This repository provides the implementation for our paper "ZipCache: Accurate an
 
 ## Getting Started
 
-Follow the step-by-step tutorial to set up EFFICIENTDM.
+Follow the step-by-step tutorial to set up ZipCache.
 
 ### Step 1: Setup
 Create a virtual environment and install dependencies as specified by requirements.txt. Then install flash_attn and zipcache as follows:
-```python
+```bash
 pip install packaging ninja
 pip install flash-attn --no-build-isolation
-python3 setup.py
+pip install -e .
 
 ```
 
