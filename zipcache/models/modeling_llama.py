@@ -56,9 +56,7 @@ from transformers.utils import (
 from transformers.utils.import_utils import is_torch_fx_available
 from transformers.models.llama.configuration_llama import LlamaConfig
 
-
 from .CompressUtils import CompressUnion, MixedPrecisionCompressUnion
-import GEARLM.utils.globalvar as globalvar ## add here
 
 if is_flash_attn_2_available():
     from flash_attn import flash_attn_func, flash_attn_varlen_func
