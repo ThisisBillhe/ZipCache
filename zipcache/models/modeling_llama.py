@@ -700,7 +700,6 @@ class MixedLlamaAttention(nn.Module):
             warnings.warn(
                 "Passing `padding_mask` is deprecated and will be removed in v4.37. Please make sure use `attention_mask` instead.`"
             )
-        # punc_ids = kwargs['punc_ids']
 
         bsz, q_len, _ = hidden_states.size()
 
@@ -1793,7 +1792,6 @@ class MyLlamaModel(LlamaPreTrainedModel):
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
-        punc_ids = None,
     ) -> Union[Tuple, BaseModelOutputWithPast]:
         output_attentions = (
             output_attentions
@@ -1898,7 +1896,6 @@ class MyLlamaModel(LlamaPreTrainedModel):
                     past_key_value=past_key_value,
                     output_attentions=output_attentions,
                     use_cache=use_cache,
-                    punc_ids=punc_ids
                 )
 
             hidden_states = layer_outputs[0]
@@ -1940,11 +1937,6 @@ class MyLlamaForCausalLM(LlamaPreTrainedModel):
 
         # Initialize weights and apply final processing
         self.post_init()
-
-        self.set_punc_ids(None)
-
-    def set_punc_ids(self, punc_ids):
-        self.punc_ids = punc_ids
 
     def get_input_embeddings(self):
         return self.model.embed_tokens
@@ -2032,7 +2024,6 @@ class MyLlamaForCausalLM(LlamaPreTrainedModel):
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
-            punc_ids=self.punc_ids
         )
 
         hidden_states = outputs[0]
